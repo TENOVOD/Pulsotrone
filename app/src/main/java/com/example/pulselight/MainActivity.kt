@@ -17,6 +17,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.pulselight.ui.backgrounds.BackgroundWithCircle
+import com.example.pulselight.ui.elements.LinearProgressTool
 import com.example.pulselight.ui.elements.LoadingLogoLabel
 import com.example.pulselight.ui.theme.PulseLightTheme
 import kotlin.math.round
@@ -27,28 +28,18 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PulseLightTheme {
-                BackgroundWithCircle()
+                LinearProgressTool()
             }
         }
     }
 }
 
 
-@Composable
-fun testElements(){
-  Text(text = "Heart Rate",
-      textAlign = TextAlign.Center,
-      fontSize = 40.sp,
-      fontWeight = FontWeight.W800
-  )
-
-
-}
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     PulseLightTheme {
-        BackgroundWithCircle()
+        LinearProgressTool()
     }
 }
