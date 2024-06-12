@@ -28,14 +28,14 @@ import androidx.compose.ui.unit.dp
 import com.example.pulselight.ui.theme.ElipseBG
 
 @Composable
-fun BackgroundWithCircle() {
+fun BackgroundWithCircle(content: @Composable () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.White) // Білий фон для всього екрану
     ) {
         Circle()
-
+        content()
     }
 }
 @Composable
@@ -45,7 +45,7 @@ fun Circle() {
         modifier = Modifier
             .fillMaxWidth()
             .height(circleSize)
-            .offset(y = (-getScreenHeightInDp() / 7))
+            .offset(y = (-getScreenHeightInDp() / 8))
     ) {
         Canvas(modifier = Modifier.fillMaxSize()) {
             drawCircle(
