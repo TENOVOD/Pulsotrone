@@ -21,7 +21,6 @@ import com.example.pulselight.ui.elements.labelsAndTexts.OnboardingMainText
 fun OnboardingForm(labelText: String, mainText: String, image: Int) {
     val dpHeight = getScreenHeightInDp()
 
-    val aaa = { Log.d("aa","aa")}
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -36,8 +35,6 @@ fun OnboardingForm(labelText: String, mainText: String, image: Int) {
         OnboardingLabel(labelText = labelText)
         Spacer(modifier = Modifier.height(dpHeight/27))
         OnboardingMainText(text = mainText)
-        Spacer(modifier = Modifier.height(dpHeight/20))
-        RegularButton(onClickAction = {Log.d("aa","aa")}," Почати!")
     }
 }
 

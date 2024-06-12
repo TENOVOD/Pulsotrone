@@ -6,5 +6,7 @@
     <string name="onboarding2_main_text">Програма надає дієві поради, які допоможуть вам підтримувати оптимальний рівень артеріального тиску та  зменшити фактори ризику серцево-судинних захворювань.</string>
     <string name="onboarding3_label_text">Нагадування</string>
     <string name="onboarding3_main_text">Не відставайте від графіка контролю артеріального тиску та прийому ліків за допомогою спеціальних нагадувань.</string>
-
+    <string name="onboarding_start">Почати!</string>
+    <string name="onboarding_end">Почати!</string>
+    <string name="onboarding_continue">Продовжити</string>
 </resources>

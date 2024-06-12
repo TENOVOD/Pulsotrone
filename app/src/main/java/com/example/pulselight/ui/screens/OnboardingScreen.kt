@@ -8,25 +8,23 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.example.pulselight.R
+
+import com.example.pulselight.models.OnboardingEntity
 import com.example.pulselight.ui.backgrounds.BackgroundWithCircle
 import com.example.pulselight.ui.backgrounds.getScreenHeightInDp
+import com.example.pulselight.ui.elements.buttons.RadioButtonGroup
 import com.example.pulselight.ui.elements.onboarding.OnboardingForm
 
 @Composable
 fun OnboardingScreen() {
-    val dpHeight = getScreenHeightInDp()
-    BackgroundWithCircle {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = dpHeight / 7),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            OnboardingForm(
-                labelText = stringResource(id = R.string.onboarding1_label_text),
-                mainText = stringResource(id = R.string.onboarding2_main_text),
-                image = R.drawable.onboarding1
-            )
-        }
-    }
+
+    val listOnOnboardingScreen = listOf(
+        OnboardingEntity(R.string.onboarding1_label_text,R.string.onboarding1_main_text,R.drawable.onboarding1),
+        OnboardingEntity(R.string.onboarding2_label_text,R.string.onboarding2_main_text,R.drawable.onboarding2),
+        OnboardingEntity(R.string.onboarding3_label_text,R.string.onboarding3_main_text,R.drawable.onboarding3),
+    )
+
+    RadioButtonGroup(listOnOnboardingScreen)
+
+
 }
