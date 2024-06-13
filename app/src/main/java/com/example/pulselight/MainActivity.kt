@@ -13,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.pulselight.ui.elements.buttons.OnBoardingRadioButton
 import com.example.pulselight.ui.screens.LoadingScreen
 import com.example.pulselight.ui.screens.OnboardingScreen
+import com.example.pulselight.ui.screens.WelcomeHomepageScreen
 import com.example.pulselight.ui.theme.PulseLightTheme
 import java.lang.reflect.Modifier
 
@@ -22,9 +23,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PulseLightTheme {
+                WelcomeHomepageScreen()
 
-                OnboardingScreen()
-            //OnBoardingRadioButton()
             }
         }
     }
@@ -36,6 +36,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     PulseLightTheme {
-        OnboardingScreen()
+        WelcomeHomepageScreen()
     }
 }

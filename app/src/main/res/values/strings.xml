@@ -9,4 +9,6 @@
     <string name="onboarding_start">Почати!</string>
     <string name="onboarding_end">Почати!</string>
     <string name="onboarding_continue">Продовжити</string>
+    <string name="homepage_top_app_bar_label">Історія</string>
+    <string name="homepage_start_your_first_measure">Виконайте своє перше вимірювання!</string>
 </resources>
