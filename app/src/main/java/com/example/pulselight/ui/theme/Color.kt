@@ -17,3 +17,8 @@ val LinearProgressFull = Color(255,75,75)
 val LinearProgressEmpty = Color( 255,172,172)
 val ButtonColor = Color(255,107,107)
 val RadioButtonNotSelected = Color(230,230,230)
+val ResultBlock = Color(236,247,255)
+
+val StatusRed = Color(255,91,91)
+val StatusGreen = Color(28,228,181)
+val StatusBlue = Color(85,173,255)

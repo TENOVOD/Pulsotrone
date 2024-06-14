@@ -3,6 +3,7 @@ package com.example.pulselight.ui.screens.camera_content
 import android.annotation.SuppressLint
 import android.view.ViewGroup
 import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
@@ -24,20 +25,26 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pulselight.CameraScreen
+import com.example.pulselight.pulse_analyzer.PulseAnalyzer
 import com.example.pulselight.ui.screens.no_permission.NoPermissionScreen
 import com.example.pulselight.viewmodels.PulseDetectorViewModel
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
+import kotlinx.coroutines.CoroutineScope
+import java.util.concurrent.Executors
 
 
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun CameraContent(
+    finalResult:Int,
     hasPermission: Boolean,
     cameraPermission: PermissionState,
     vm: PulseDetectorViewModel = viewModel(),
-    onRequestPermission: () -> Unit
+    onRequestPermission: () -> Unit,
+    onFingerDetected:(Boolean)->Unit,
+    onPulseDetected: (Int) -> Unit
 ) {
     if (hasPermission) {
         LaunchedEffect(Unit) {
@@ -47,7 +54,7 @@ fun CameraContent(
                 vm.startCamera()
             }
         }
-        CameraScreen()
+        CameraScreen(finalResult,onFingerDetected,onPulseDetected)
     } else {
         NoPermissionScreen(onRequestPermission)
     }
@@ -56,12 +63,14 @@ fun CameraContent(
 
 @SuppressLint("RestrictedApi")
 @Composable
-fun CameraPreview() {
+fun CameraPreview(finalResult:Int,onFingerDetected:(Boolean)->Unit,onPulseDetected: (Int) -> Unit) {
     val context = LocalContext.current
     val lifecycleOwner = context as LifecycleOwner
     val cameraProviderFuture = remember { ProcessCameraProvider.getInstance(context) }
     var cameraProvider by remember { mutableStateOf<ProcessCameraProvider?>(null) }
     var cameraControl by remember { mutableStateOf<androidx.camera.core.CameraControl?>(null) }
+    val analysisExecutor = remember { Executors.newSingleThreadExecutor() }
+
 
     LaunchedEffect(cameraControl) {
         cameraControl?.enableTorch(true)
@@ -70,6 +79,7 @@ fun CameraPreview() {
     DisposableEffect(Unit) {
         onDispose {
             cameraControl?.enableTorch(false)
+            analysisExecutor.shutdown()
         }
     }
 
@@ -89,9 +99,20 @@ fun CameraPreview() {
 
                 preview.setSurfaceProvider(previewView.surfaceProvider)
 
+                val imageAnalyzer = ImageAnalysis.Builder()
+                    .setTargetResolution(android.util.Size(640, 480))
+                    .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                    .build()
+                    .also {
+                        it.setAnalyzer(analysisExecutor, PulseAnalyzer (
+                            finalResult,
+                            onFingerDetected = {onFingerDetected(it)},
+                            onPulseDetected = {onPulseDetected(it)}
+                        ))
+                    }
                 try {
                     provider.unbindAll()
-                    val camera = provider.bindToLifecycle(lifecycleOwner, cameraSelector, preview)
+                    val camera = provider.bindToLifecycle(lifecycleOwner, cameraSelector, preview,imageAnalyzer)
                     cameraControl = camera.cameraControl
                     cameraProvider = provider
                 } catch (e: Exception) {
@@ -106,3 +127,6 @@ fun CameraPreview() {
             .background(Color.Black)
     )
 }
+
+
+

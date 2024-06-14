@@ -21,6 +21,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,6 +41,7 @@ import com.example.pulselight.R
 
 import com.example.pulselight.ui.backgrounds.HomepageBackground
 import com.example.pulselight.ui.backgrounds.getScreenHeightInDp
+import com.example.pulselight.ui.elements.LinearProgressTool
 import com.example.pulselight.ui.elements.labelsAndTexts.DetectionFingerLabel
 import com.example.pulselight.ui.elements.labelsAndTexts.InstructionText
 import com.example.pulselight.ui.elements.labelsAndTexts.LabelBpmButton
@@ -57,6 +63,14 @@ fun HeartMeasuringScreen() {
     val heartShadow: Painter = painterResource(id = R.drawable.heart_shadow)
     val heartWithGlare: Painter = painterResource(id = R.drawable.heart_with_glare)
     val fingerOnCamera: Painter = painterResource(id = R.drawable.finger_on_camera)
+
+    val finalResult by remember { mutableStateOf(0) }
+    var pulse by remember { mutableStateOf(0) }
+    var isMeasuring by remember {
+        mutableStateOf(false)
+    }
+
+
     HomepageBackground {
         Column(
             modifier = Modifier
@@ -66,19 +80,31 @@ fun HeartMeasuringScreen() {
 
         ) {
             CameraContent(
+                finalResult,
                 hasPermission = cameraPermissionState.status.isGranted,
                 cameraPermissionState,
-                onRequestPermission = cameraPermissionState::launchPermissionRequest
+                onRequestPermission = cameraPermissionState::launchPermissionRequest,
+                onFingerDetected = {isMeasuring =it},
+                onPulseDetected = {pulse=it}
             )
+
             Spacer(modifier = Modifier.height(10.dp))
-            DetectionFingerLabel(textId = R.string.missing_finger)
-            Spacer(modifier = Modifier.height(10.dp))
-            InstructionText(textId = R.string.put_finger_to_camera)
+            if(isMeasuring){
+                DetectionFingerLabel(textId = R.string.measurement_is_in_progress)
+                Spacer(modifier = Modifier.height(10.dp))
+                InstructionText(textId = R.string.measuring_your_pulse)
+            }else{
+                DetectionFingerLabel(textId = R.string.missing_finger)
+                Spacer(modifier = Modifier.height(10.dp))
+                InstructionText(textId = R.string.put_finger_to_camera)
+            }
+
+
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(0.7f)
-                    .offset(y = (-screenHeight)/16),
+                    .offset(y = (-screenHeight) / 16),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
@@ -97,19 +123,24 @@ fun HeartMeasuringScreen() {
                 )
 
                 LabelBpmOnButton(modifier = Modifier.padding(top = 100.dp))
-                LabelBpmButton()
+                LabelBpmButton(bpmCount=pulse.toString())
             }
-            Image(
-                modifier = Modifier
-                    .fillMaxHeight(0.8f)
-                    .padding(start = 30.dp)
-                    .fillMaxWidth()
-                    .offset(y = (-screenHeight)/10)
+            if(isMeasuring){
+                LinearProgressTool(animationDuration=20000)
+            }else{
+                Image(
+                    modifier = Modifier
+                        .fillMaxHeight(0.8f)
+                        .padding(start = 30.dp)
+                        .fillMaxWidth()
+                        .offset(y = (-screenHeight) / 10)
                     ,
 
-                painter = fingerOnCamera,
-                contentDescription = "Finger on phones camera"
-            )
+                    painter = fingerOnCamera,
+                    contentDescription = "Finger on phones camera"
+                )
+            }
+
         }
 
     }

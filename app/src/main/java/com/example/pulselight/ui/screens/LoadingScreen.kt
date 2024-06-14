@@ -41,7 +41,7 @@ fun LoadingScreen() {
             }
             LoadingLogoLabel()
             Spacer(modifier = Modifier.height(dpHeight/3.25f))
-            LinearProgressTool()
+            LinearProgressTool(10000)
         }
 
 

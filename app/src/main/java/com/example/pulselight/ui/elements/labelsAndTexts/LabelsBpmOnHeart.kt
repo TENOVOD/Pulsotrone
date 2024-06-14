@@ -27,7 +27,7 @@ fun LabelBpmOnButton(modifier: Modifier=Modifier){
 }
 
 @Composable
-fun LabelBpmButton(bpmCount:String="65"){
+fun LabelBpmButton(bpmCount:String="--"){
     Text(
         modifier = Modifier.fillMaxWidth().padding(bottom = 30.dp),
         text = bpmCount,
