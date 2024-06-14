@@ -31,7 +31,7 @@ fun HomepageCircle() {
         modifier = Modifier
             .fillMaxWidth()
             .height(circleSize)
-            .offset(y = (-getScreenHeightInDp() / 6))
+            .offset(y = (-getScreenHeightInDp() / 7))
     ) {
         Canvas(modifier = Modifier.fillMaxSize()) {
             drawCircle(
