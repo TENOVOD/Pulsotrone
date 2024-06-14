@@ -13,5 +13,11 @@ import com.example.pulselight.R
 
 @Composable
 fun LoadingLogoLabel(){
-
+    Text(
+        modifier = Modifier.fillMaxWidth(),
+        text = stringResource(id = R.string.app_name),
+        textAlign = TextAlign.Center,
+        fontSize = 50.sp,
+        fontWeight = FontWeight.W900
+    )
 }
