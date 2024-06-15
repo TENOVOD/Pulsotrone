@@ -46,6 +46,7 @@ fun OnBoardingRadioButton(
 @Composable
 fun RadioButtonGroup(
     entitiesList: List<OnboardingEntity>,
+    goToMeasuring:()->Unit
 ) {
     val dpHeight = getScreenHeightInDp()
     var (selectedOption, onOptionSelected) = remember {
@@ -55,7 +56,7 @@ fun RadioButtonGroup(
         mutableIntStateOf(R.string.onboarding_start)
     }
 
-    BackgroundWithCircle {
+
         Column(Modifier.fillMaxSize()) {
             Column(
                 modifier = Modifier
@@ -114,14 +115,14 @@ fun RadioButtonGroup(
                         currentIndex = R.string.onboarding_continue
                     }
                     else if (index == entitiesList.size - 1) {
-
+                        goToMeasuring()
                     }
                 }, buttonText = stringResource(id = currentIndex))
 
             }
         }
 
-    }
+
 
 
 }

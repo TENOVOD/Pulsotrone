@@ -8,19 +8,27 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.navigation.NavController
 import com.example.pulselight.R
 import com.example.pulselight.ui.backgrounds.BackgroundWithCircle
 import com.example.pulselight.ui.backgrounds.getScreenHeightInDp
 import com.example.pulselight.ui.elements.LinearProgressTool
 import com.example.pulselight.ui.elements.labelsAndTexts.LoadingLogoLabel
+import kotlinx.coroutines.delay
 
 
 @Composable
-fun LoadingScreen() {
+fun LoadingScreen(navController: NavController) {
     val dpHeight = getScreenHeightInDp()
+    LaunchedEffect(Unit) {
+        delay(2000)
+        navController.navigate("OnboardingScreen")
+
+    }
     BackgroundWithCircle {
 
         Column(
@@ -41,7 +49,7 @@ fun LoadingScreen() {
             }
             LoadingLogoLabel()
             Spacer(modifier = Modifier.height(dpHeight/3.25f))
-            LinearProgressTool(10000)
+            LinearProgressTool(2000)
         }
 
 

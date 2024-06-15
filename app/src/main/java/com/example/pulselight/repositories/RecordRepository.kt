@@ -6,21 +6,31 @@ import com.example.pulselight.models.RecordEntity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class RecordRepository (
+class RecordRepository(
     private val recordDao: RecordDao
-){
+) {
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
     val recordList: LiveData<List<RecordEntity>> = recordDao.getAllRecords()
 
-    fun addRecord(record: RecordEntity){
-       coroutineScope.launch (Dispatchers.IO){
-           recordDao.addRecord(record)
-       }
+
+    suspend fun addRecord(record: RecordEntity): Long {
+        return withContext(Dispatchers.IO) {
+            recordDao.addRecord(record)
+        }
     }
 
-    fun deleteAllRecords(){
+    suspend fun getRecordById(id: Long): RecordEntity? {
+
+        return withContext(Dispatchers.IO){
+            recordDao.getRecordById(id)
+        }
+
+    }
+
+    fun deleteAllRecords() {
         coroutineScope.launch(Dispatchers.IO) {
             recordDao.deleteAllRecords()
         }

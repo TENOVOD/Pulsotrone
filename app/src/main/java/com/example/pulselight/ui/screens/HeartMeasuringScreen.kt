@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraManager
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -22,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -36,6 +38,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.pulselight.R
 
 
@@ -56,20 +59,26 @@ import com.google.accompanist.permissions.rememberPermissionState
 @OptIn(ExperimentalPermissionsApi::class)
 @SuppressLint("RestrictedApi")
 @Composable
-fun HeartMeasuringScreen() {
-    val cameraPermissionState: PermissionState =
-        rememberPermissionState(permission = Manifest.permission.CAMERA)
+fun HeartMeasuringScreen(navController: NavController,vm:PulseDetectorViewModel) {
+    val cameraPermissionState: PermissionState = rememberPermissionState(permission = Manifest.permission.CAMERA)
     val screenHeight= getScreenHeightInDp()
     val heartShadow: Painter = painterResource(id = R.drawable.heart_shadow)
     val heartWithGlare: Painter = painterResource(id = R.drawable.heart_with_glare)
     val fingerOnCamera: Painter = painterResource(id = R.drawable.finger_on_camera)
 
-    val finalResult by remember { mutableStateOf(0) }
+    val resultList by vm.allRecords.observeAsState(listOf())
+    var finalResult by remember { mutableStateOf(0) }
     var pulse by remember { mutableStateOf(0) }
     var isMeasuring by remember {
         mutableStateOf(false)
     }
+    if (finalResult!=0){
+        vm.changeBpm(finalResult.toString())
+        vm.addRecord { newRecordId ->
 
+            navController.navigate("ResultScreen/$newRecordId")
+        }
+    }
 
     HomepageBackground {
         Column(
@@ -80,10 +89,11 @@ fun HeartMeasuringScreen() {
 
         ) {
             CameraContent(
-                finalResult,
                 hasPermission = cameraPermissionState.status.isGranted,
                 cameraPermissionState,
+                vm= vm,
                 onRequestPermission = cameraPermissionState::launchPermissionRequest,
+                onChangeFinalResult = {finalResult=it},
                 onFingerDetected = {isMeasuring =it},
                 onPulseDetected = {pulse=it}
             )

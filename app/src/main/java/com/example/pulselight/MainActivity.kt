@@ -23,6 +23,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.pulselight.navigations.AppNavigation
 import com.example.pulselight.ui.elements.ResultBlock
 import com.example.pulselight.ui.elements.buttons.OnBoardingRadioButton
 import com.example.pulselight.ui.screens.HeartMeasuringScreen
@@ -38,7 +39,7 @@ import kotlinx.coroutines.CoroutineScope
 
 
 class MainActivity : ComponentActivity() {
-    private val viewModel: PulseDetectorViewModel by viewModels()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +47,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PulseLightTheme {
-                HistoryScreen()
+                AppNavigation()
             }
         }
     }
@@ -54,22 +55,16 @@ class MainActivity : ComponentActivity() {
 
 
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    PulseLightTheme {
-        WelcomeHomepageScreen()
-    }
-}
+
 
 @Composable
-fun CameraScreen(finalResult:Int,onFingerDetected:(Boolean)->Unit,onPulseDetected: (Int) -> Unit) {
+fun CameraScreen(onChangeFinalResult:(Int)->Unit,onFingerDetected:(Boolean)->Unit,onPulseDetected: (Int) -> Unit) {
     Box(
         modifier = Modifier
             .size(50.dp)
             .clip(CircleShape)
             .background(Color.Black)
     ) {
-        CameraPreview(finalResult,onFingerDetected,onPulseDetected)
+        CameraPreview(onChangeFinalResult,onFingerDetected,onPulseDetected)
     }
 }

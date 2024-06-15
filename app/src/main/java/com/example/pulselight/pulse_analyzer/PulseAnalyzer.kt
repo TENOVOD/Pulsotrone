@@ -9,7 +9,7 @@ import kotlinx.coroutines.delay
 import java.nio.ByteBuffer
 
 class PulseAnalyzer(
-    private var finalResult: Int,
+    private var finalResult: (Int)->Unit,
     private var onFingerDetected: (Boolean) -> Unit,
     private val onPulseDetected: (Int) -> Unit
 ) : ImageAnalysis.Analyzer {
@@ -38,16 +38,17 @@ class PulseAnalyzer(
             Log.d("WORKDredAv", "${listOfMeasures.size}")
             if (listOfMeasures.size > 4) {
                 var counter = 0
-                var finalResul = 0
+                var localFinalResul = 0
                 listOfMeasures.forEach {
 
                     ++counter
-                    finalResul += it
+                    localFinalResul += it
 
 
                 }
-                finalResult = (finalResul.toFloat() / listOfMeasures.size).toInt()
-                Log.d("FINALRESULT", "$finalResul")
+                finalResult (localFinalResul/counter)
+
+               // Log.d("FINALRESULT9", "$finalResult")
             }
         } else {
             isFingerOnCamera = false

@@ -38,10 +38,10 @@ import java.util.concurrent.Executors
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun CameraContent(
-    finalResult:Int,
     hasPermission: Boolean,
     cameraPermission: PermissionState,
-    vm: PulseDetectorViewModel = viewModel(),
+    vm: PulseDetectorViewModel,
+    onChangeFinalResult:(Int)->Unit,
     onRequestPermission: () -> Unit,
     onFingerDetected:(Boolean)->Unit,
     onPulseDetected: (Int) -> Unit
@@ -54,7 +54,7 @@ fun CameraContent(
                 vm.startCamera()
             }
         }
-        CameraScreen(finalResult,onFingerDetected,onPulseDetected)
+        CameraScreen(onChangeFinalResult,onFingerDetected,onPulseDetected)
     } else {
         NoPermissionScreen(onRequestPermission)
     }
@@ -63,7 +63,7 @@ fun CameraContent(
 
 @SuppressLint("RestrictedApi")
 @Composable
-fun CameraPreview(finalResult:Int,onFingerDetected:(Boolean)->Unit,onPulseDetected: (Int) -> Unit) {
+fun CameraPreview(finalResult:(Int)->Unit,onFingerDetected:(Boolean)->Unit,onPulseDetected: (Int) -> Unit) {
     val context = LocalContext.current
     val lifecycleOwner = context as LifecycleOwner
     val cameraProviderFuture = remember { ProcessCameraProvider.getInstance(context) }
@@ -105,7 +105,7 @@ fun CameraPreview(finalResult:Int,onFingerDetected:(Boolean)->Unit,onPulseDetect
                     .build()
                     .also {
                         it.setAnalyzer(analysisExecutor, PulseAnalyzer (
-                            finalResult,
+                            finalResult= {finalResult(it)},
                             onFingerDetected = {onFingerDetected(it)},
                             onPulseDetected = {onPulseDetected(it)}
                         ))

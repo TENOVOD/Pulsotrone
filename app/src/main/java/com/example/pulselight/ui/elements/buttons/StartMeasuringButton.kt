@@ -23,7 +23,7 @@ import com.example.pulselight.R
 import com.example.pulselight.ui.backgrounds.getScreenHeightInDp
 
 @Composable
-fun StartMeasuringButton() {
+fun StartMeasuringButton(starMeasuring:()->Unit) {
     val screenHeight = getScreenHeightInDp();
     Row(
         modifier = Modifier.fillMaxWidth()
@@ -31,10 +31,8 @@ fun StartMeasuringButton() {
         horizontalArrangement = Arrangement.Center
     ) {
 
-
-        IconButton(onClick = { /*TODO*/ },
+        IconButton(onClick = starMeasuring,
             modifier =Modifier.padding(10.dp).fillMaxSize() ) {
-
             Image(
                 modifier = Modifier.fillMaxSize(),
                 painter = painterResource(id = R.drawable.start_measuring_button),

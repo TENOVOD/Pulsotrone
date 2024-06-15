@@ -19,14 +19,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.pulselight.R
 import com.example.pulselight.ui.backgrounds.HomepageBackground
 import com.example.pulselight.ui.backgrounds.getScreenHeightInDp
 import com.example.pulselight.ui.elements.buttons.StartMeasuringButton
 import com.example.pulselight.ui.elements.topbars.HomepageTopBar
+import com.example.pulselight.viewmodels.PulseDetectorViewModel
 
 @Composable
-fun WelcomeHomepageScreen() {
+fun WelcomeHomepageScreen(navController: NavController) {
     val screenHeight = getScreenHeightInDp()
     HomepageBackground {
         Column(Modifier.fillMaxSize()) {
@@ -55,7 +58,9 @@ fun WelcomeHomepageScreen() {
                 }
             }
             Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.Bottom) {
-                StartMeasuringButton()
+                StartMeasuringButton(){
+                    navController.navigate("MeasuringPage")
+                }
             }
         }
 
