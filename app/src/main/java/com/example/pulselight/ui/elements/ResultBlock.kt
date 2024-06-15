@@ -15,10 +15,10 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ResultBlock(content: @Composable () -> Unit) {
     Box(modifier = Modifier
-        .padding(20.dp)
+        .padding(top = 150.dp, start = 20.dp, end = 20.dp)
         .clip(RoundedCornerShape(16.dp))
         .fillMaxWidth()
-        .fillMaxHeight(0.4f)
+        .fillMaxHeight(0.5f)
         .background(com.example.pulselight.ui.theme.ResultBlock)
     ){
         content()

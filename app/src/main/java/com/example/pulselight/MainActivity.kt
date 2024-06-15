@@ -26,6 +26,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pulselight.ui.elements.ResultBlock
 import com.example.pulselight.ui.elements.buttons.OnBoardingRadioButton
 import com.example.pulselight.ui.screens.HeartMeasuringScreen
+import com.example.pulselight.ui.screens.HistoryScreen
 import com.example.pulselight.ui.screens.LoadingScreen
 import com.example.pulselight.ui.screens.OnboardingScreen
 import com.example.pulselight.ui.screens.ResultScreen
@@ -45,7 +46,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PulseLightTheme {
-                ResultScreen()
+                HistoryScreen()
             }
         }
     }

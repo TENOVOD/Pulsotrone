@@ -25,6 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.example.pulselight.ui.theme.BgColor
 import com.example.pulselight.ui.theme.ElipseBG
 
 @Composable
@@ -32,7 +33,7 @@ fun BackgroundWithCircle(content: @Composable () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White) // Білий фон для всього екрану
+            .background(BgColor) // Білий фон для всього екрану
     ) {
         Circle()
         content()

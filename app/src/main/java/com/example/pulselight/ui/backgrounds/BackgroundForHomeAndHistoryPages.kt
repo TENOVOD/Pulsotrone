@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import com.example.pulselight.ui.theme.BgColor
 import com.example.pulselight.ui.theme.ElipseBG
 
 @Composable
@@ -17,7 +18,7 @@ fun HomepageBackground(content: @Composable () -> Unit){
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White) // Білий фон для всього екрану
+            .background(BgColor) // Білий фон для всього екрану
     ) {
         HomepageCircle()
         content()

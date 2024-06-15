@@ -13,6 +13,7 @@ val Pink40 = Color(0xFF7D5260)
 
 //added colors
 val ElipseBG = Color(178,222,251)
+val BgColor = Color(240,240,240)
 val LinearProgressFull = Color(255,75,75)
 val LinearProgressEmpty = Color( 255,172,172)
 val ButtonColor = Color(255,107,107)

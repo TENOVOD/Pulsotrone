@@ -38,6 +38,7 @@ import kotlin.math.max
 import kotlin.math.min
 @Composable
 fun ResultProgressBar(pulse:Int) {
+    val localPulseValue = if(pulse>120) 120 else pulse
     var boxWidth by remember { mutableStateOf(0) }
     val density = LocalDensity.current
     Box(
@@ -47,9 +48,9 @@ fun ResultProgressBar(pulse:Int) {
             .clip(RoundedCornerShape(12.dp))
             .padding(4.dp)
             .onSizeChanged {
-                boxWidth = -it.width/2
+                boxWidth = it.width
             },
-        contentAlignment = Alignment.Center,
+
 
     ) {
         Canvas(modifier = Modifier.fillMaxWidth()
@@ -62,29 +63,30 @@ fun ResultProgressBar(pulse:Int) {
             drawRoundRect(
                 color = StatusBlue,
                 topLeft = Offset(0f, 0f),
-                size = Size(width * 0.33f, height),
+                size = Size(width * 0.5f, height),
             )
 
             drawRoundRect(
                 color = StatusGreen,
-                topLeft = Offset(width * 0.33f, 0f),
-                size = Size(width * 0.34f, height),
+                topLeft = Offset(width * 0.5f, 0f),
+                size = Size(width * 0.8f, height),
             )
 
             drawRoundRect(
                 color = StatusRed,
-                topLeft = Offset(width * 0.67f, 0f),
+                topLeft = Offset(width * 0.8f, 0f),
                 size = Size(width * 0.33f, height),
             )
         }
 
 
-        val sliderPosition = with(density) { (pulse.coerceIn(0, 150) / 150f) * (boxWidth - 20.dp.toPx()) }
+        val sliderPosition = with(density) { (localPulseValue.coerceIn(0, 120) / 120f) * (boxWidth - 20.dp.toPx()) }
         Box(
             modifier = Modifier
                 .offset { IntOffset(sliderPosition.toInt(), 0) }
                 .height(35.dp)
                 .width(10.dp)
+                .offset(y= (-5).dp)
                 .clip(RoundedCornerShape(3.dp))
                 .border(2.dp, Color.LightGray)
                 .background(Color.White,)

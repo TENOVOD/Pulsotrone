@@ -1,5 +1,6 @@
 package com.example.pulselight.ui.elements.labelsAndTexts
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -19,6 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -32,8 +34,9 @@ import com.example.pulselight.ui.theme.StatusBlue
 fun LegendWithBpmLimits(textStatus: Int, textBpmLimit: Int, color: Color) {
     Column(
         Modifier
-            .padding(start = 20.dp, bottom = 10.dp, end = 20.dp)
-            .fillMaxWidth()) {
+            .padding(bottom = 10.dp)
+            .fillMaxWidth()
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -47,8 +50,27 @@ fun LegendWithBpmLimits(textStatus: Int, textBpmLimit: Int, color: Color) {
 }
 
 @Composable
-fun TimeAndDateWithIcon(){
-    
+fun TimeAndDateWithIcon(time: String, date: String) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Image(
+            painter = painterResource(id = R.drawable.clock_icon),
+            contentDescription = "creating time"
+        )
+        Column {
+            Text(
+                modifier = Modifier.padding(3.dp),
+                text = time,
+                color = Color.DarkGray,
+                fontSize = 14.sp
+            )
+            Text(
+                modifier = Modifier.padding(3.dp),
+                text = date,
+                color = Color.DarkGray,
+                fontSize = 14.sp
+            )
+        }
+    }
 }
 
 @Composable
