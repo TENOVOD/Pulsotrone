@@ -2,6 +2,7 @@ package com.example.pulselight.ui.elements.rows
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,13 +29,14 @@ import com.example.pulselight.ui.theme.ButtonColor
 
 
 @Composable
-fun HistoryRowCart(record: RecordEntity) {
+fun HistoryRowCart(record: RecordEntity,goToDetailsById:()->Unit) {
     Box(
         modifier = Modifier
             .padding(10.dp)
             .clip(RoundedCornerShape(20.dp))
             .background(Color.White)
             .fillMaxWidth()
+            .clickable {goToDetailsById()}
     ) {
         HistoryBpmAndDateRow(record.bpm, record.time, record.date)
     }

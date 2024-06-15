@@ -11,10 +11,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.pulselight.ui.screens.HeartMeasuringScreen
+import com.example.pulselight.ui.screens.HistoryScreen
 import com.example.pulselight.ui.screens.LoadingScreen
 import com.example.pulselight.ui.screens.OnboardingScreen
 import com.example.pulselight.ui.screens.ResultScreen
 import com.example.pulselight.ui.screens.WelcomeHomepageScreen
+import com.example.pulselight.viewmodels.HistoryViewModel
+import com.example.pulselight.viewmodels.HistoryViewModelFactory
 import com.example.pulselight.viewmodels.OnboardingViewModel
 import com.example.pulselight.viewmodels.PulseDetectorViewModel
 import com.example.pulselight.viewmodels.PulseDetectorViewModelFactory
@@ -39,6 +42,11 @@ fun AppNavigation() {
             factory = ResultViewModelFactory(application),
             viewModelStoreOwner = it
         )
+        val historyViewModel:HistoryViewModel = viewModel(
+            factory = HistoryViewModelFactory(application),
+            viewModelStoreOwner = it
+        )
+
 
         val navController = rememberNavController()
         NavHost(navController = navController, startDestination = "loadingScreen") {
@@ -63,6 +71,8 @@ fun AppNavigation() {
                 val recordId = navBackStackEntry.arguments!!.getLong("recordId")
                 ResultScreen(navController = navController,vm= resultViewModel,recordId=recordId)
             }
+            composable("HistoryScreen"){ HistoryScreen(navController=navController,vm=historyViewModel)}
+
 
         }
     }

@@ -16,12 +16,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.pulselight.R
 import com.example.pulselight.ui.elements.labelsAndTexts.TopBarLabel
 import com.example.pulselight.ui.theme.ButtonColor
 
 @Composable
-fun HistoryTopBar () {
+fun HistoryTopBar (navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -35,7 +36,7 @@ fun HistoryTopBar () {
                 horizontalArrangement = Arrangement.Start,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(onClick = {navController.popBackStack()}) {
                     Image(
                         modifier = Modifier.padding(end = 5.dp, start = 5.dp),
                         painter = painterResource(id = R.drawable.arrow_back),

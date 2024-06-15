@@ -22,13 +22,6 @@ class RecordRepository(
         }
     }
 
-    suspend fun getRecordById(id: Long): RecordEntity? {
-
-        return withContext(Dispatchers.IO){
-            recordDao.getRecordById(id)
-        }
-
-    }
 
     fun deleteAllRecords() {
         coroutineScope.launch(Dispatchers.IO) {

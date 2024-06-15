@@ -14,12 +14,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.pulselight.R
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavController
 import com.example.pulselight.ui.elements.labelsAndTexts.TopBarLabel
 import com.example.pulselight.ui.theme.ButtonColor
 
 
 @Composable
-fun HomepageTopBar() {
+fun HomepageTopBar(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -29,11 +30,11 @@ fun HomepageTopBar() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         TopBarLabel( R.string.history)
-        IconButton(onClick = { /*TODO*/ }) {
+        IconButton(onClick = { navController.navigate("HistoryScreen")}) {
             Image(
                 modifier = Modifier.padding(end = 5.dp, start = 5.dp),
                 painter = painterResource(id = R.drawable.history_icon),
-                contentDescription = "history icon"
+                contentDescription = "HistoryScreen"
             )
         }
     }

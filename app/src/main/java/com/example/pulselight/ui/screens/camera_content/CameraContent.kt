@@ -41,9 +41,9 @@ fun CameraContent(
     hasPermission: Boolean,
     cameraPermission: PermissionState,
     vm: PulseDetectorViewModel,
-    onChangeFinalResult:(Int)->Unit,
+    onChangeFinalResult: (Int) -> Unit,
     onRequestPermission: () -> Unit,
-    onFingerDetected:(Boolean)->Unit,
+    onFingerDetected: (Boolean) -> Unit,
     onPulseDetected: (Int) -> Unit
 ) {
     if (hasPermission) {
@@ -54,7 +54,7 @@ fun CameraContent(
                 vm.startCamera()
             }
         }
-        CameraScreen(onChangeFinalResult,onFingerDetected,onPulseDetected)
+        CameraScreen(onChangeFinalResult, onFingerDetected, onPulseDetected)
     } else {
         NoPermissionScreen(onRequestPermission)
     }
@@ -63,13 +63,18 @@ fun CameraContent(
 
 @SuppressLint("RestrictedApi")
 @Composable
-fun CameraPreview(finalResult:(Int)->Unit,onFingerDetected:(Boolean)->Unit,onPulseDetected: (Int) -> Unit) {
+fun CameraPreview(
+    finalResult: (Int) -> Unit,
+    onFingerDetected: (Boolean) -> Unit,
+    onPulseDetected: (Int) -> Unit
+) {
     val context = LocalContext.current
     val lifecycleOwner = context as LifecycleOwner
     val cameraProviderFuture = remember { ProcessCameraProvider.getInstance(context) }
     var cameraProvider by remember { mutableStateOf<ProcessCameraProvider?>(null) }
     var cameraControl by remember { mutableStateOf<androidx.camera.core.CameraControl?>(null) }
     val analysisExecutor = remember { Executors.newSingleThreadExecutor() }
+    //var localCamera
 
 
     LaunchedEffect(cameraControl) {
@@ -126,6 +131,7 @@ fun CameraPreview(finalResult:(Int)->Unit,onFingerDetected:(Boolean)->Unit,onPul
             .size(200.dp)
             .background(Color.Black)
     )
+
 }
 
 

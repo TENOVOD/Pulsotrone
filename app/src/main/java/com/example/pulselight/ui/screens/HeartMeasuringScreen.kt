@@ -65,8 +65,6 @@ fun HeartMeasuringScreen(navController: NavController,vm:PulseDetectorViewModel)
     val heartShadow: Painter = painterResource(id = R.drawable.heart_shadow)
     val heartWithGlare: Painter = painterResource(id = R.drawable.heart_with_glare)
     val fingerOnCamera: Painter = painterResource(id = R.drawable.finger_on_camera)
-
-    val resultList by vm.allRecords.observeAsState(listOf())
     var finalResult by remember { mutableStateOf(0) }
     var pulse by remember { mutableStateOf(0) }
     var isMeasuring by remember {
@@ -75,9 +73,10 @@ fun HeartMeasuringScreen(navController: NavController,vm:PulseDetectorViewModel)
     if (finalResult!=0){
         vm.changeBpm(finalResult.toString())
         vm.addRecord { newRecordId ->
-
             navController.navigate("ResultScreen/$newRecordId")
         }
+        finalResult = 0
+        vm.stopCamera()
     }
 
     HomepageBackground {

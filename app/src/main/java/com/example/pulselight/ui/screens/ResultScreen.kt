@@ -1,5 +1,6 @@
 package com.example.pulselight.ui.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,7 +42,7 @@ fun ResultScreen(navController: NavController,vm:ResultViewModel,recordId:Long) 
     vm.getRecordById(recordId,resultList)
 
     HomepageBackground{
-        ResultTopBar()
+        ResultTopBar(navController)
         Column(Modifier.fillMaxSize()) {
             ResultBlock{
                 Column(modifier = Modifier.padding(20.dp)) {
@@ -66,7 +67,7 @@ fun ResultScreen(navController: NavController,vm:ResultViewModel,recordId:Long) 
                 Modifier
                     .fillMaxSize()
                     .padding(bottom = 20.dp), verticalArrangement = Arrangement.Bottom,horizontalAlignment = Alignment.CenterHorizontally) {
-                RegularButton(onClickAction = { /*TODO*/ }, buttonText = stringResource(id = R.string.ready))
+                RegularButton(onClickAction = { navController.navigate("HomepageMeasuring") }, buttonText = stringResource(id = R.string.ready))
             }
         }
 

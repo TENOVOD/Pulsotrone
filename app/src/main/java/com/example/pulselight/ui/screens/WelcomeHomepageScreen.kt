@@ -33,7 +33,7 @@ fun WelcomeHomepageScreen(navController: NavController) {
     val screenHeight = getScreenHeightInDp()
     HomepageBackground {
         Column(Modifier.fillMaxSize()) {
-            HomepageTopBar()
+            HomepageTopBar(navController)
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally

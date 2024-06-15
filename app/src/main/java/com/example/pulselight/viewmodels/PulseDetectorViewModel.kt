@@ -31,7 +31,7 @@ class PulseDetectorViewModel(application: Application): ViewModel() {
     private val repository:RecordRepository
     private val mutableCameraState = MutableStateFlow<CameraState>(CameraState.Initial)
     var recordBpm by mutableStateOf("")
-
+    private var isSavingRecord = false
     init {
         val pulseMeasuresDatabase = PulseMeasuresDatabase.getInstance(application)
         val pulseMeasureDao = pulseMeasuresDatabase.recordDao()
@@ -50,9 +50,12 @@ class PulseDetectorViewModel(application: Application): ViewModel() {
         recordBpm=newBpm
     }
     fun addRecord(callback: (Long) -> Unit) {
+        if(isSavingRecord)return
+        isSavingRecord=true
         val record = RecordEntity(recordBpm)
         viewModelScope.launch {
             val recordId = repository.addRecord(record)
+            isSavingRecord = false
             callback(recordId)
         }
     }
