@@ -24,23 +24,13 @@ import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.pulselight.navigations.AppNavigation
-import com.example.pulselight.ui.elements.ResultBlock
-import com.example.pulselight.ui.elements.buttons.OnBoardingRadioButton
-import com.example.pulselight.ui.screens.HeartMeasuringScreen
-import com.example.pulselight.ui.screens.HistoryScreen
-import com.example.pulselight.ui.screens.LoadingScreen
-import com.example.pulselight.ui.screens.OnboardingScreen
-import com.example.pulselight.ui.screens.ResultScreen
-import com.example.pulselight.ui.screens.WelcomeHomepageScreen
-import com.example.pulselight.ui.screens.camera_content.CameraPreview
+
 import com.example.pulselight.ui.theme.PulseLightTheme
 import com.example.pulselight.viewmodels.PulseDetectorViewModel
 import kotlinx.coroutines.CoroutineScope
 
 
 class MainActivity : ComponentActivity() {
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,21 +40,5 @@ class MainActivity : ComponentActivity() {
                 AppNavigation()
             }
         }
-    }
-}
-
-
-
-
-
-@Composable
-fun CameraScreen(onChangeFinalResult:(Int)->Unit,onFingerDetected:(Boolean)->Unit,onPulseDetected: (Int) -> Unit) {
-    Box(
-        modifier = Modifier
-            .size(50.dp)
-            .clip(CircleShape)
-            .background(Color.Black)
-    ) {
-        CameraPreview(onChangeFinalResult,onFingerDetected,onPulseDetected)
     }
 }

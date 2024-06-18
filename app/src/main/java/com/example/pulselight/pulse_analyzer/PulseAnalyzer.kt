@@ -46,7 +46,7 @@ class PulseAnalyzer(
 
 
                 }
-                finalResult (localFinalResul/counter)
+                finalResult(localFinalResul/counter)
 
                // Log.d("FINALRESULT9", "$finalResult")
             }

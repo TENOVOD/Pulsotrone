@@ -49,7 +49,7 @@ fun LoadingScreen(navController: NavController) {
             }
             LoadingLogoLabel()
             Spacer(modifier = Modifier.height(dpHeight/3.25f))
-            LinearProgressTool(2000)
+            LinearProgressTool(1000)
         }
 
 
