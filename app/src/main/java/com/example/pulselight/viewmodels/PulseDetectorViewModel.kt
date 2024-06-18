@@ -27,6 +27,11 @@ class PulseDetectorViewModelFactory(val application:Application):ViewModelProvid
 
 class PulseDetectorViewModel(application: Application): ViewModel() {
 
+    
+
+
+
+
     val allRecords: LiveData<List<RecordEntity>>
     private val repository:RecordRepository
     private val mutableCameraState = MutableStateFlow<CameraState>(CameraState.Initial)
