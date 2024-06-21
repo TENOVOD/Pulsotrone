@@ -25,7 +25,7 @@ import kotlinx.coroutines.delay
 fun LoadingScreen(navController: NavController) {
     val dpHeight = getScreenHeightInDp()
     LaunchedEffect(Unit) {
-        delay(2000)
+        delay(1000)
         navController.navigate("OnboardingScreen")
 
     }

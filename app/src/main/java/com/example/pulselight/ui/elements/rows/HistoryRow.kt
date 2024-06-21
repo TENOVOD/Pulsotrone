@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -29,14 +30,14 @@ import com.example.pulselight.ui.theme.ButtonColor
 
 
 @Composable
-fun HistoryRowCart(record: RecordEntity,goToDetailsById:()->Unit) {
+fun HistoryRowCart(record: RecordEntity, goToDetailsById: () -> Unit) {
     Box(
         modifier = Modifier
-            .padding(10.dp)
+            .padding(top = 10.dp, bottom = 10.dp, start = 10.dp, end = 15.dp)
             .clip(RoundedCornerShape(20.dp))
             .background(Color.White)
             .fillMaxWidth()
-            .clickable {goToDetailsById()}
+            .clickable { goToDetailsById() }
     ) {
         HistoryBpmAndDateRow(record.bpm, record.time, record.date)
     }
@@ -54,41 +55,54 @@ fun HistoryBpmAndDateRow(bpmText: String, time: String, date: String) {
         verticalAlignment = Alignment.CenterVertically
     ) {
         BigBpmText(bpbValue = bpmText, modifier = Modifier.fillMaxWidth(0.5f))
-        Box(modifier = Modifier.fillMaxWidth(),
-            contentAlignment = Alignment.CenterEnd) {
-            Row( modifier = Modifier.fillMaxWidth(),
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.CenterEnd
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceAround,
                 verticalAlignment = Alignment.CenterVertically
-            ){
-                Spacer(modifier = Modifier
-                    .height(80.dp)
-                    .width(5.dp)
-                    .clip(RoundedCornerShape(3.dp))
-                    .background(ButtonColor)
-                   )
+            ) {
+                Spacer(
+                    modifier = Modifier
+                        .height(80.dp)
+                        .width(5.dp)
+                        .clip(RoundedCornerShape(3.dp))
+                        .background(ButtonColor)
+                )
 
                 TimeAndDate(time, date)
             }
-
         }
-
     }
 }
 
 @Composable
-fun BigBpmText(bpbValue: String,modifier: Modifier=Modifier) {
-    Text(
+fun BigBpmText(bpbValue: String, modifier: Modifier = Modifier) {
+    Row(
         modifier = modifier,
-        text = "$bpbValue BPM",
-        fontSize = 36.sp,
-        color = Color.Black,
-        fontWeight = FontWeight.W500
-    )
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Text(
+
+            text = "$bpbValue BPM",
+            fontSize = 30.sp,
+            color = Color.Black,
+            fontWeight = FontWeight.W500
+        )
+    }
+
 }
 
 @Composable
 fun TimeAndDate(time: String, date: String) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.Center
+    ) {
         Column {
             Text(
                 modifier = Modifier.padding(3.dp),

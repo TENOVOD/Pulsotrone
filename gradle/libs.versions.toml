@@ -12,6 +12,7 @@ roomRuntime = "2.6.1"
 runtimeLivedata = "1.6.5"
 ksp = "1.9.0-1.0.13"
 navigationCompose = "2.7.7"
+foundationDesktop = "1.6.8"
 
 
 [libraries]
@@ -35,6 +36,7 @@ androidx-room-room-compiler = { module = "androidx.room:room-compiler", version.
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 androidx-runtime-livedata = { module = "androidx.compose.runtime:runtime-livedata", version.ref = "runtimeLivedata" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
+androidx-foundation-desktop = { group = "androidx.compose.foundation", name = "foundation-desktop", version.ref = "foundationDesktop" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

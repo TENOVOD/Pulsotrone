@@ -2,6 +2,7 @@ package com.example.pulselight.ui.elements.topbars
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -34,10 +36,13 @@ fun ResultTopBar(navController: NavController) {
         TopBarLabel(R.string.result, Modifier.padding(start = 20.dp))
         Box(Modifier.padding(end = 10.dp)) {
             Row(
+                modifier = Modifier.clickable {
+                    navController.navigate("HistoryScreen")
+                },
                 horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                TopBarLabel(R.string.history)
+                TopBarLabel( R.string.history)
                 IconButton(onClick = { navController.navigate("HistoryScreen") }) {
                     Image(
                         modifier = Modifier.padding(end = 5.dp, start = 5.dp),
