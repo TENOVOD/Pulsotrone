@@ -127,7 +127,7 @@ fun ResultText(textId: Int, color: Color) {
     Text(
         text = stringResource(id = textId),
         color = color,
-        fontSize = 30.sp,
+        fontSize = 25.sp,
         fontWeight = FontWeight.Bold
     )
 }

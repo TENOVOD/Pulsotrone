@@ -1,5 +1,7 @@
 package com.example.pulselight
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -41,4 +43,18 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+}
+
+
+
+fun saveFirstLaunch(context: Context) {
+    val sharedPreferences: SharedPreferences = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
+    val editor = sharedPreferences.edit()
+    editor.putBoolean("isFirstLaunch", false)
+    editor.apply()
+}
+
+fun isFirstLaunch(context: Context): Boolean {
+    val sharedPreferences: SharedPreferences = context.getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
+    return sharedPreferences.getBoolean("isFirstLaunch", true)
 }

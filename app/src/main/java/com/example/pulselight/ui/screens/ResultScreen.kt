@@ -49,12 +49,18 @@ fun ResultScreen(navController: NavController,vm:ResultViewModel,recordId:Long) 
                     Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                         Column {
                             ResultCartLabel(textId = R.string.your_result)
-                            ResultText(textId = R.string.regular, color = StatusGreen )
+                            if (vm.recordBpm<60){
+                                ResultText(textId = R.string.slowed_down, color = StatusBlue )
+                            }else if (vm.recordBpm<100){
+                                ResultText(textId = R.string.regular, color = StatusGreen )
+                            }else{
+                                ResultText(textId = R.string.accelerated, color = StatusRed )
+                            }
+
                         }
                         TimeAndDateWithIcon(vm.recordTime, vm.recordDate)
                     }
-
-                    ResultProgressBar(vm.recordBpm)
+                    ResultProgressBar(vm.recordBpm )
                     Spacer(modifier = Modifier.height(20.dp))
                     LegendWithBpmLimits(color = StatusBlue, textStatus = R.string.slowed_down, textBpmLimit = R.string.bpm_60)
                     LegendWithBpmLimits(color = StatusGreen, textStatus = R.string.regular, textBpmLimit = R.string.bpm_60_100)
@@ -75,3 +81,4 @@ fun ResultScreen(navController: NavController,vm:ResultViewModel,recordId:Long) 
 
 
 }
+
