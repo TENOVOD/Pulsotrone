@@ -2,6 +2,7 @@ package com.example.pulselight.ui.screens
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Application
 import android.util.Log
 import androidx.camera.view.PreviewView
 import androidx.compose.foundation.Image
@@ -20,6 +21,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,10 +32,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.pulselight.R
 
@@ -48,15 +54,26 @@ import com.example.pulselight.ui.elements.labelsAndTexts.LabelBpmOnButton
 
 import com.example.pulselight.ui.screens.no_permission.NoPermissionScreen
 import com.example.pulselight.viewmodels.PulseDetectorViewModel
+import com.example.pulselight.viewmodels.PulseDetectorViewModelFactory
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.PermissionState
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
+import java.util.concurrent.Executors
 
 @OptIn(ExperimentalPermissionsApi::class)
 @SuppressLint("RestrictedApi")
 @Composable
-fun HeartMeasuringScreen(navController: NavController, vm: PulseDetectorViewModel) {
+fun HeartMeasuringScreen(navController: NavController) {
+    val context = LocalContext.current
+    val application = context.applicationContext as Application
+    val viewModelStoreOwner = LocalViewModelStoreOwner.current
+        ?: throw IllegalStateException("No ViewModelStoreOwner was provided via LocalViewModelStoreOwner")
+    val vm: PulseDetectorViewModel = viewModel(
+        viewModelStoreOwner = viewModelStoreOwner,
+        factory = PulseDetectorViewModelFactory(application)
+    )
+
     val cameraPermissionState: PermissionState =
         rememberPermissionState(permission = Manifest.permission.CAMERA)
 
@@ -64,20 +81,29 @@ fun HeartMeasuringScreen(navController: NavController, vm: PulseDetectorViewMode
     val heartShadow: Painter = painterResource(id = R.drawable.heart_shadow)
     val heartWithGlare: Painter = painterResource(id = R.drawable.heart_with_glare)
     val fingerOnCamera: Painter = painterResource(id = R.drawable.finger_on_camera)
-
     var finalResult by remember { mutableStateOf(vm.recordBpm) }
     var pulse by remember { mutableStateOf(vm.currentPulseValue) }
     var isMeasuring by remember {
         mutableStateOf(vm.isFingerOnCamera)
     }
-    Log.d("RESRES","BATYA YA STARAYUS")
-    if (finalResult != 0) {
-        vm.recordBpm = finalResult
-        finalResult = 0
-        vm.addRecord { newRecordId ->
-            navController.navigate("ResultScreen/$newRecordId")
+    LaunchedEffect(finalResult) {
+        Log.d("HeartMeasuringScreen", "Final result: $finalResult")
+        if (finalResult > 1) {
+            vm.recordBpm = finalResult
+            vm.addRecord { newRecordId ->
+                Log.d("HeartMeasuringScreen", "Navigating to ResultScreen/$newRecordId")
+                navController.navigate("ResultScreen/$newRecordId")
+            }
+            finalResult = 1
         }
-        vm.cameraExecutor.shutdown()
+    }
+
+    DisposableEffect(Unit) {
+        onDispose {
+
+            vm.onCleared()
+            Log.d("MyViewModel", "ViewModel is cleared")
+        }
     }
 
 
@@ -89,9 +115,6 @@ fun HeartMeasuringScreen(navController: NavController, vm: PulseDetectorViewMode
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
-            Button(onClick = { }) {
-                Text(text = "CHANGE")
-            }
             CameraContent(
                 hasPermission = cameraPermissionState.status.isGranted,
                 vm = vm,
@@ -199,6 +222,11 @@ fun CameraPreview(
 
     AndroidView(
         factory = { ctx ->
+            try {
+                cameraProvider.unbindAll()
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
             PreviewView(ctx).apply {
                 vm.bindPreview(
                     this,
@@ -214,6 +242,7 @@ fun CameraPreview(
             .size(200.dp)
             .background(Color.Black)
     )
+
 
 }
 

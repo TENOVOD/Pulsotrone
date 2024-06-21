@@ -37,7 +37,7 @@ class PulseDetectorViewModelFactory(val application:Application):ViewModelProvid
 class PulseDetectorViewModel(application: Application): ViewModel() {
 
     val isTorchOn = mutableStateOf(false)
-    val cameraExecutor: ExecutorService = Executors.newSingleThreadExecutor()
+    var cameraExecutor: ExecutorService = Executors.newSingleThreadExecutor()
     val cameraProviderFuture = ProcessCameraProvider.getInstance(application.applicationContext)
     private var preview: Preview? = null
 
@@ -45,13 +45,12 @@ class PulseDetectorViewModel(application: Application): ViewModel() {
     private val repository: RecordRepository
 
     //values
-    var recordBpm by mutableStateOf(0)
+    var recordBpm by mutableStateOf(1)
     var isFingerOnCamera by mutableStateOf(false)
     private var isSavingRecord = false
     var currentPulseValue by mutableStateOf(0)
 
     init {
-
         val pulseMeasuresDatabase = PulseMeasuresDatabase.getInstance(application)
         val pulseMeasureDao = pulseMeasuresDatabase.recordDao()
         repository = RecordRepository(pulseMeasureDao)
@@ -66,6 +65,8 @@ class PulseDetectorViewModel(application: Application): ViewModel() {
         onFingerDetected: (Boolean) -> Unit,
         onPulseDetected: (Int) -> Unit
     ) {
+        Log.d("PulseDetectorViewModel", "Binding preview")
+        cameraProvider.unbindAll()
         if (preview == null) {
             preview = Preview.Builder().build().also {
                 it.setSurfaceProvider(previewView.surfaceProvider)
@@ -82,7 +83,6 @@ class PulseDetectorViewModel(application: Application): ViewModel() {
                         onPulseDetected = { onPulseDetected(it) }
                     ))
                 }
-
             try {
                 cameraProvider.bindToLifecycle(
                     lifecycleOwner,
@@ -97,7 +97,12 @@ class PulseDetectorViewModel(application: Application): ViewModel() {
         }
     }
 
+    fun changeRecordBpm(recBpm: Int){
+        recordBpm = recBpm
+    }
+
     fun toggleTorch(cameraProvider: ProcessCameraProvider, lifecycleOwner: LifecycleOwner) {
+        Log.d("PulseDetectorViewModel", "Toggling torch")
         try {
             val camera = cameraProvider.bindToLifecycle(
                 lifecycleOwner,
@@ -113,9 +118,15 @@ class PulseDetectorViewModel(application: Application): ViewModel() {
         }
     }
 
-    override fun onCleared() {
+    public override fun onCleared() {
         super.onCleared()
+        changeRecordBpm(1)
+        preview==null
+        currentPulseValue = 0
         cameraExecutor.shutdown()
+        cameraProviderFuture.cancel(true)
+        Log.d("MyViewModel", "CLEARED")
+
     }
 
 

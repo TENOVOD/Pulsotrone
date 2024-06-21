@@ -27,11 +27,51 @@ import com.example.pulselight.viewmodels.ResultViewModelFactory
 
 @Composable
 fun AppNavigation() {
-    val owner = LocalViewModelStoreOwner.current
+    val navController = rememberNavController()
+    val context = LocalContext.current
+    val application = context.applicationContext as Application
 
-    owner?.let {
-        val context = LocalContext.current
-        val application = context.applicationContext as Application
+
+    NavHost(navController = navController, startDestination = "loadingScreen") {
+        composable("loadingScreen") { LoadingScreen(navController = navController) }
+        composable("OnboardingScreen") {
+            val onboardingViewModel: OnboardingViewModel = viewModel()
+            OnboardingScreen(
+                navController = navController,
+                onboardingViewModel
+            )
+        }
+        composable("HomepageMeasuring") { WelcomeHomepageScreen(navController = navController) }
+        composable("MeasuringPage") { backStackEntry ->
+            val measuringViewModel: PulseDetectorViewModel = viewModel(
+                factory = PulseDetectorViewModelFactory(application),
+                viewModelStoreOwner = backStackEntry
+            )
+            HeartMeasuringScreen(
+                navController = navController,
+            )
+        }
+        composable(
+            "ResultScreen/{recordId}",
+            arguments = listOf(navArgument("recordId") { type = NavType.LongType })
+        ) { navBackStackEntry ->
+            val recordId = navBackStackEntry.arguments!!.getLong("recordId")
+            val resultViewModel: ResultViewModel = viewModel(
+                factory = ResultViewModelFactory(application),
+                viewModelStoreOwner = navBackStackEntry
+            )
+            ResultScreen(navController = navController, vm = resultViewModel, recordId = recordId)
+        }
+        composable("HistoryScreen") { backStackEntry ->
+            val historyViewModel: HistoryViewModel = viewModel(
+                factory = HistoryViewModelFactory(application),
+                viewModelStoreOwner = backStackEntry
+            )
+            HistoryScreen(navController = navController, vm = historyViewModel)
+        }
+    }
+    /*owner?.let {
+
 
         val onboardingViewModel: OnboardingViewModel = viewModel()
         val measuringViewModel: PulseDetectorViewModel = viewModel(
@@ -48,7 +88,7 @@ fun AppNavigation() {
         )
 
 
-        val navController = rememberNavController()
+
         NavHost(navController = navController, startDestination = "loadingScreen") {
             composable("loadingScreen") { LoadingScreen(navController = navController) }
             composable("OnboardingScreen") {
@@ -75,5 +115,5 @@ fun AppNavigation() {
 
 
         }
-    }
+    }*/
 }
