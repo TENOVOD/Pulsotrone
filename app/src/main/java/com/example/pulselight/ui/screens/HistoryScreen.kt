@@ -24,9 +24,11 @@ import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.pulselight.R
 import com.example.pulselight.models.RecordEntity
 import com.example.pulselight.ui.backgrounds.HomepageBackground
 import com.example.pulselight.ui.elements.buttons.RegularButton
@@ -64,7 +66,7 @@ fun HistoryScreen(navController: NavController, vm: HistoryViewModel) {
                             Spacer(modifier = Modifier.height(10.dp))
                             RegularButton(
                                 onClickAction = { vm.deleteAllRecords() },
-                                buttonText = "Очистити історію"
+                                buttonText = stringResource(id = R.string.clean_story)
                             )
                             Spacer(modifier = Modifier.height(10.dp))
                         }

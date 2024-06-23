@@ -1,6 +1,7 @@
 package com.example.pulselight.ui.screens.no_permission
 
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.pulselight.R
@@ -36,9 +38,18 @@ private fun NoPermissionContent(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
+
         DetectionFingerLabel(R.string.get_permission_message)
         Spacer(modifier = Modifier.height(16.dp))
-        RegularButton(onClickAction = onRequestPermission, buttonText = stringResource(id = R.string.get_permission_button) )
+        Image(
+            painter = painterResource(id = R.drawable.camera_permission_icon),
+            contentDescription = " Icon camera with lock"
+        )
+        Spacer(modifier = Modifier.height(16.dp))
+        RegularButton(
+            onClickAction = onRequestPermission,
+            buttonText = stringResource(id = R.string.get_permission_button)
+        )
 
     }
 }
