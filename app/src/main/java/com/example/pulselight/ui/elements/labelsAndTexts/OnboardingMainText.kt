@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.example.pulselight.ui.fonts.customFontStyle
 
 @Composable
 fun OnboardingMainText(text:String){
@@ -13,6 +14,7 @@ fun OnboardingMainText(text:String){
       text = text,
         modifier = Modifier.fillMaxWidth(),
         textAlign = TextAlign.Center,
-        fontSize = 14.sp
+        fontSize = 14.sp,
+        fontFamily = customFontStyle
     )
 }

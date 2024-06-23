@@ -12,6 +12,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.pulselight.R
+import com.example.pulselight.ui.fonts.customFontStyle
 
 @Composable
 fun LabelBpmOnButton(modifier: Modifier=Modifier){
@@ -21,7 +22,8 @@ fun LabelBpmOnButton(modifier: Modifier=Modifier){
         textAlign = TextAlign.Center,
         fontSize = 25.sp,
         fontWeight = FontWeight.W700,
-        color = Color.White
+        color = Color.White,
+        fontFamily = customFontStyle
 
     )
 }
@@ -34,7 +36,8 @@ fun LabelBpmButton(bpmCount:String="--"){
         textAlign = TextAlign.Center,
         fontSize = 85.sp,
         fontWeight = FontWeight.Bold,
-        color = Color.White
+        color = Color.White,
+        fontFamily = customFontStyle
 
     )
 }

@@ -8,12 +8,11 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.pulselight.ui.fonts.customFontStyle
 import com.example.pulselight.ui.theme.ButtonColor
 
 
@@ -33,7 +32,8 @@ fun RegularButton(onClickAction: () -> Unit, buttonText: String) {
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
             color = Color.White,
-            fontSize = 16.sp
+            fontSize = 16.sp,
+            fontFamily = customFontStyle
         )
     }
 }

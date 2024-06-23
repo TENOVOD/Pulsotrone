@@ -1,23 +1,9 @@
 package com.example.pulselight.ui.screens
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
 import androidx.navigation.NavController
-import com.example.pulselight.R
-
-import com.example.pulselight.models.OnboardingEntity
 import com.example.pulselight.ui.backgrounds.BackgroundWithCircle
-import com.example.pulselight.ui.backgrounds.getScreenHeightInDp
 import com.example.pulselight.ui.elements.buttons.RadioButtonGroup
-import com.example.pulselight.ui.elements.onboarding.OnboardingForm
 import com.example.pulselight.viewmodels.OnboardingViewModel
 
 @Composable

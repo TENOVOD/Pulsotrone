@@ -10,7 +10,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.pulselight.ui.backgrounds.BackgroundWithCircle
 import com.example.pulselight.ui.backgrounds.getScreenHeightInDp
 import com.example.pulselight.ui.elements.onboarding.OnboardingForm
 import androidx.compose.foundation.background
@@ -46,7 +45,7 @@ fun OnBoardingRadioButton(
 @Composable
 fun RadioButtonGroup(
     entitiesList: List<OnboardingEntity>,
-    goToMeasuring:()->Unit
+    goToMeasuring: () -> Unit
 ) {
     val dpHeight = getScreenHeightInDp()
     var (selectedOption, onOptionSelected) = remember {
@@ -56,73 +55,66 @@ fun RadioButtonGroup(
         mutableIntStateOf(R.string.onboarding_start)
     }
 
+    Column(Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = dpHeight / 7),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
 
-        Column(Modifier.fillMaxSize()) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = dpHeight / 7),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Top
+        ) {
+            OnboardingForm(
+                labelText = stringResource(selectedOption.labelText),
+                mainText = stringResource(selectedOption.mainText),
+                image = selectedOption.image
+            )
 
-            ) {
-                OnboardingForm(
-                    labelText = stringResource(selectedOption.labelText),
-                    mainText = stringResource(selectedOption.mainText),
-                    image = selectedOption.image
-                )
-
-            }
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(bottom = 15.dp),
-                verticalArrangement = Arrangement.Bottom,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
-                    modifier = Modifier.padding(bottom = 15.dp)
-                ) {
-
-                    entitiesList.forEach { index ->
-                        OnBoardingRadioButton(
-                            selected = index == selectedOption,
-                            modifier = Modifier
-                                .size(
-                                    width = if (index == selectedOption) 60.dp else 24.dp,
-                                    height = 24.dp
-                                )
-                                .padding(4.dp)
-                                .clip(RoundedCornerShape(50))
-                                .clickable { onOptionSelected(index) }
-                        )
-                    }
-                }
-                RegularButton(onClickAction = {
-                    var index = entitiesList.indexOf(selectedOption)
-                    if(index==entitiesList.size-2){
-                        currentIndex = R.string.onboarding_end
-                        ++index
-                        onOptionSelected(entitiesList[index])
-                        selectedOption = entitiesList[index]
-                    }
-                    else if (index < entitiesList.size - 1) {
-                        ++index
-                        onOptionSelected(entitiesList[index])
-                        selectedOption = entitiesList[index]
-                        currentIndex = R.string.onboarding_continue
-                    }
-                    else if (index == entitiesList.size - 1) {
-                        goToMeasuring()
-                    }
-                }, buttonText = stringResource(id = currentIndex))
-
-            }
         }
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 15.dp),
+            verticalArrangement = Arrangement.Bottom,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                modifier = Modifier.padding(bottom = 15.dp)
+            ) {
+                entitiesList.forEach { index ->
+                    OnBoardingRadioButton(
+                        selected = index == selectedOption,
+                        modifier = Modifier
+                            .size(
+                                width = if (index == selectedOption) 60.dp else 24.dp,
+                                height = 24.dp
+                            )
+                            .padding(4.dp)
+                            .clip(RoundedCornerShape(50))
+                            .clickable { onOptionSelected(index) }
+                    )
+                }
+            }
+            RegularButton(onClickAction = {
+                var index = entitiesList.indexOf(selectedOption)
+                if (index == entitiesList.size - 2) {
+                    currentIndex = R.string.onboarding_end
+                    ++index
+                    onOptionSelected(entitiesList[index])
+                    selectedOption = entitiesList[index]
+                } else if (index < entitiesList.size - 1) {
+                    ++index
+                    onOptionSelected(entitiesList[index])
+                    selectedOption = entitiesList[index]
+                    currentIndex = R.string.onboarding_continue
+                } else if (index == entitiesList.size - 1) {
+                    goToMeasuring()
+                }
+            }, buttonText = stringResource(id = currentIndex))
 
-
-
+        }
+    }
 
 }

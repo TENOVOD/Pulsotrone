@@ -10,6 +10,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.example.pulselight.R
+import com.example.pulselight.ui.fonts.customFontStyle
 
 @Composable
 fun LoadingLogoLabel(){
@@ -18,6 +19,7 @@ fun LoadingLogoLabel(){
         text = stringResource(id = R.string.app_name),
         textAlign = TextAlign.Center,
         fontSize = 50.sp,
-        fontWeight = FontWeight.W900
+        fontWeight = FontWeight.W900,
+        fontFamily = customFontStyle
     )
 }

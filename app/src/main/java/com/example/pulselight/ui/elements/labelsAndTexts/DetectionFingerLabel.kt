@@ -9,6 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.example.pulselight.ui.fonts.customFontStyle
 
 
 @Composable
@@ -17,8 +18,9 @@ fun DetectionFingerLabel(textId: Int) {
         text = stringResource(id = textId),
         modifier = Modifier.fillMaxWidth(),
         color = Color.Black,
-        fontSize = 18.sp,
+        fontSize = 24.sp,
         fontWeight = FontWeight.W800,
-        textAlign = TextAlign.Center
+        textAlign = TextAlign.Center,
+        fontFamily = customFontStyle
     )
 }

@@ -1,6 +1,5 @@
 package com.example.pulselight.ui.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -16,14 +15,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.pulselight.R
 import com.example.pulselight.ui.backgrounds.HomepageBackground
 import com.example.pulselight.ui.elements.ResultBlock
 import com.example.pulselight.ui.elements.ResultProgressBar
 import com.example.pulselight.ui.elements.buttons.RegularButton
-import com.example.pulselight.ui.elements.labelsAndTexts.LegendStatus
 import com.example.pulselight.ui.elements.labelsAndTexts.LegendWithBpmLimits
 import com.example.pulselight.ui.elements.labelsAndTexts.ResultCartLabel
 import com.example.pulselight.ui.elements.labelsAndTexts.ResultText

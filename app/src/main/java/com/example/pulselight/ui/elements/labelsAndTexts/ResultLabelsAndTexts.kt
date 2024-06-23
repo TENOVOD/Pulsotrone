@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -26,8 +25,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.pulselight.R
+import com.example.pulselight.ui.fonts.customFontStyle
 import com.example.pulselight.ui.theme.ElipseBG
-import com.example.pulselight.ui.theme.StatusBlue
 
 
 @Composable
@@ -107,7 +106,8 @@ fun TextBpmLimit(textId: Int) {
     Text(
         text = stringResource(id = textId),
         color = Color.Black,
-        fontSize = 14.sp
+        fontSize = 14.sp,
+        fontFamily = customFontStyle
 
     )
 }
@@ -118,7 +118,8 @@ fun ResultCartLabel(textId: Int) {
         text = stringResource(id = textId),
         color = Color.Black,
         fontSize = 20.sp,
-        fontWeight = FontWeight.W800
+        fontWeight = FontWeight.W800,
+        fontFamily = customFontStyle
     )
 }
 
@@ -128,7 +129,8 @@ fun ResultText(textId: Int, color: Color) {
         text = stringResource(id = textId),
         color = color,
         fontSize = 25.sp,
-        fontWeight = FontWeight.Bold
+        fontWeight = FontWeight.Bold,
+        fontFamily = customFontStyle
     )
 }
 
@@ -138,7 +140,8 @@ fun StatusText(textId: Int) {
         text = stringResource(id = textId),
         color = Color.Black,
         fontSize = 14.sp,
-        fontWeight = FontWeight.Bold
+        fontWeight = FontWeight.Bold,
+        fontFamily = customFontStyle
     )
 }
 

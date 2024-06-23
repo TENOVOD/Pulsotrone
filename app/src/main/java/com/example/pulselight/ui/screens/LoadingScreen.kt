@@ -28,12 +28,13 @@ import kotlinx.coroutines.delay
 fun LoadingScreen(navController: NavController) {
     val dpHeight = getScreenHeightInDp()
     val context = LocalContext.current
+
     LaunchedEffect(Unit) {
         delay(1000)
-        if (isFirstLaunch(context)){
+        if (isFirstLaunch(context)) {
             saveFirstLaunch(context)
             navController.navigate("OnboardingScreen")
-        }else{
+        } else {
             navController.navigate("HomepageMeasuring")
         }
 
@@ -58,7 +59,7 @@ fun LoadingScreen(navController: NavController) {
                 )
             }
             LoadingLogoLabel()
-            Spacer(modifier = Modifier.height(dpHeight/3.25f))
+            Spacer(modifier = Modifier.height(dpHeight / 3.25f))
             LinearProgressTool(1000)
         }
 

@@ -43,10 +43,6 @@ fun AppNavigation() {
         }
         composable("HomepageMeasuring") { WelcomeHomepageScreen(navController = navController) }
         composable("MeasuringPage") { backStackEntry ->
-            val measuringViewModel: PulseDetectorViewModel = viewModel(
-                factory = PulseDetectorViewModelFactory(application),
-                viewModelStoreOwner = backStackEntry
-            )
             HeartMeasuringScreen(
                 navController = navController,
             )
@@ -70,6 +66,8 @@ fun AppNavigation() {
             HistoryScreen(navController = navController, vm = historyViewModel)
         }
     }
+
+    //Older version (but we cant control viewModel lifecycle
     /*owner?.let {
 
 

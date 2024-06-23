@@ -36,7 +36,7 @@ fun BackgroundWithCircle(content: @Composable () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(BgColor) // Білий фон для всього екрану
+            .background(BgColor)
             .padding(bottom = WindowInsets.navigationBars.asPaddingValues().calculateBottomPadding()+16.dp)
     ) {
         Circle()

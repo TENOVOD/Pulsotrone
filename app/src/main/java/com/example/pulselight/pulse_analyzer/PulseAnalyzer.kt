@@ -9,7 +9,7 @@ import kotlinx.coroutines.delay
 import java.nio.ByteBuffer
 
 class PulseAnalyzer(
-    private var finalResult: (Int)->Unit,
+    private var finalResult: (Int) -> Unit,
     private var onFingerDetected: (Boolean) -> Unit,
     private val onPulseDetected: (Int) -> Unit
 ) : ImageAnalysis.Analyzer {
@@ -35,7 +35,6 @@ class PulseAnalyzer(
             if (frameTimestamps.size == 50) {
                 startMeasurement()
             }
-            Log.d("WORKDredAv", "${listOfMeasures.size}")
             if (listOfMeasures.size > 4) {
                 var counter = 0
                 var localFinalResul = 0
@@ -44,11 +43,9 @@ class PulseAnalyzer(
                     ++counter
                     localFinalResul += it
 
-
                 }
-                finalResult(localFinalResul/counter)
+                finalResult(localFinalResul / counter)
 
-               // Log.d("FINALRESULT9", "$finalResult")
             }
         } else {
             isFingerOnCamera = false
@@ -62,8 +59,7 @@ class PulseAnalyzer(
     private fun startMeasurement() {
         val smoothedRedAverageQueue = smoothData(redAverageQueue)
         val pulse = calculatePulse(smoothedRedAverageQueue, frameTimestamps)
-        Log.d("RESDDDDDA", "PULSE $pulse")
-        if (pulse != 0) {
+        if (pulse != 0 && pulse < 220) {
             onPulseDetected(pulse)
             listOfMeasures.add(pulse)
             redAverageQueue.clear()
@@ -115,7 +111,6 @@ class PulseAnalyzer(
         for (i in 1 until redAverageQueue.size - 1) {
             if (redAverageQueue[i] > threshold && redAverageQueue[i] > redAverageQueue[i - 1] && redAverageQueue[i] > redAverageQueue[i + 1]) {
                 peaks.add(frameTtimestamps[i])
-                // Log.d("WORKDS",frameTtimestamps[i].toString())
             }
         }
 

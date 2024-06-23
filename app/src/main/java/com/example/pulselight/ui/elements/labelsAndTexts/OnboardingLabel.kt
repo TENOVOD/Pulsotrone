@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.example.pulselight.ui.fonts.customFontStyle
 
 @Composable
 fun OnboardingLabel(labelText: String){
@@ -15,6 +16,7 @@ fun OnboardingLabel(labelText: String){
         text = labelText,
         textAlign = TextAlign.Center,
         fontWeight = FontWeight.W700,
-        fontSize = 22.sp
+        fontSize = 22.sp,
+        fontFamily = customFontStyle
     )
 }

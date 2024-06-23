@@ -9,6 +9,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.example.pulselight.ui.fonts.customFontStyle
 
 @Composable
 fun InstructionText (textId:Int){
@@ -18,6 +19,7 @@ fun InstructionText (textId:Int){
         color = Color.White,
         fontSize = 14.sp,
         fontWeight = FontWeight.W400,
-        textAlign = TextAlign.Center
+        textAlign = TextAlign.Center,
+        fontFamily = customFontStyle
     )
 }

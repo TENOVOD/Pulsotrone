@@ -65,7 +65,6 @@ class PulseDetectorViewModel(application: Application): ViewModel() {
         onFingerDetected: (Boolean) -> Unit,
         onPulseDetected: (Int) -> Unit
     ) {
-        Log.d("PulseDetectorViewModel", "Binding preview")
         cameraProvider.unbindAll()
         if (preview == null) {
             preview = Preview.Builder().build().also {

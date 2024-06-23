@@ -1,10 +1,8 @@
 package com.example.pulselight.ui.elements
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,26 +14,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.offset
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import com.example.pulselight.ui.theme.StatusBlue
 import com.example.pulselight.ui.theme.StatusGreen
 import com.example.pulselight.ui.theme.StatusRed
-import kotlin.math.max
-import kotlin.math.min
+
 @Composable
 fun ResultProgressBar(pulse:Int) {
     val localPulseValue = if(pulse>120) 120 else pulse
@@ -90,8 +82,6 @@ fun ResultProgressBar(pulse:Int) {
                 .clip(RoundedCornerShape(3.dp))
                 .border(2.dp, Color.LightGray)
                 .background(Color.White,)
-
-
 
         )
     }

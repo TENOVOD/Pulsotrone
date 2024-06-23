@@ -26,12 +26,13 @@ import androidx.compose.ui.layout.AlignmentLine
 import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.example.pulselight.ui.fonts.customFontStyle
 import com.example.pulselight.ui.theme.LinearProgressEmpty
 import com.example.pulselight.ui.theme.LinearProgressFull
 
 
 @Composable
-fun LinearProgressTool(animationDuration:Int) {
+fun LinearProgressTool(animationDuration: Int) {
     var progress by remember { mutableStateOf(0f) }
 
     LaunchedEffect(Unit) {
@@ -49,7 +50,7 @@ fun LinearProgressTool(animationDuration:Int) {
             progress = value
         }
     }
-    Box{
+    Box {
         LinearProgressIndicator(
             modifier = Modifier
                 .fillMaxWidth(0.8f)
@@ -65,14 +66,13 @@ fun LinearProgressTool(animationDuration:Int) {
             modifier = Modifier
                 .fillMaxWidth(0.8f)
                 .height(20.dp)
-                .clip(RoundedCornerShape(5.dp))
-               // .offset(y= -(20).dp)
-            ,
-            text = (progress*100).toInt().toString().plus("%"),
+                .clip(RoundedCornerShape(5.dp)),
+            text = (progress * 100).toInt().toString().plus("%"),
             color = Color.White,
             textAlign = TextAlign.Center,
+            fontFamily = customFontStyle
 
-            )
+        )
     }
 
 

@@ -26,5 +26,7 @@
     <string name="bpm_100">&gt;100 BPM</string>
     <string name="ready">Готово</string>
     <string name="clean_story">Очистити історію</string>
-
+    <string name="empty_bpm_value">--</string>
+    <string name="get_permission_message">Будь ласка, надайте дозвіл на використання камери, щоб використовувати основні функції цієї програми</string>
+    <string name="get_permission_button">Надати дозвіл</string>
 </resources>

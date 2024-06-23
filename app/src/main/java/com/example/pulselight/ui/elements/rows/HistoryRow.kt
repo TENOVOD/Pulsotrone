@@ -1,6 +1,5 @@
 package com.example.pulselight.ui.elements.rows
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -8,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,12 +18,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.pulselight.R
 import com.example.pulselight.models.RecordEntity
+import com.example.pulselight.ui.fonts.customFontStyle
 import com.example.pulselight.ui.theme.ButtonColor
 
 
@@ -86,11 +83,11 @@ fun BigBpmText(bpbValue: String, modifier: Modifier = Modifier) {
         horizontalArrangement = Arrangement.Center
     ) {
         Text(
-
             text = "$bpbValue BPM",
             fontSize = 30.sp,
             color = Color.Black,
-            fontWeight = FontWeight.W500
+            fontWeight = FontWeight.W500,
+            fontFamily = customFontStyle
         )
     }
 
@@ -109,14 +106,16 @@ fun TimeAndDate(time: String, date: String) {
                 text = time,
                 color = Color.DarkGray,
                 fontSize = 18.sp,
-                fontWeight = FontWeight.W600
+                fontWeight = FontWeight.W600,
+                fontFamily = customFontStyle
 
             )
             Text(
                 modifier = Modifier.padding(3.dp),
                 text = date,
                 color = Color.DarkGray,
-                fontSize = 18.sp
+                fontSize = 18.sp,
+                fontFamily = customFontStyle
             )
         }
     }
