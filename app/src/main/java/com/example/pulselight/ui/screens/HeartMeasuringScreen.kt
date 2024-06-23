@@ -77,7 +77,6 @@ fun HeartMeasuringScreen(navController: NavController) {
     val cameraPermissionState: PermissionState =
         rememberPermissionState(permission = Manifest.permission.CAMERA)
 
-
     var finalResult by remember { mutableStateOf(vm.recordBpm) }
     var pulse by remember { mutableStateOf(vm.currentPulseValue) }
     var isMeasuring by remember {
@@ -97,7 +96,7 @@ fun HeartMeasuringScreen(navController: NavController) {
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(40.dp),
+                .padding(35.dp),
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {

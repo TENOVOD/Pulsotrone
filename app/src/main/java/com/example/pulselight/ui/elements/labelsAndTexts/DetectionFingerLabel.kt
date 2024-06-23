@@ -18,7 +18,7 @@ fun DetectionFingerLabel(textId: Int) {
         text = stringResource(id = textId),
         modifier = Modifier.fillMaxWidth(),
         color = Color.Black,
-        fontSize = 24.sp,
+        fontSize = 22.sp,
         fontWeight = FontWeight.W800,
         textAlign = TextAlign.Center,
         fontFamily = customFontStyle

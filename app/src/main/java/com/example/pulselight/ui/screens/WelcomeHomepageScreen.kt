@@ -39,7 +39,7 @@ fun WelcomeHomepageScreen(navController: NavController) {
                 Text(
                     text = stringResource(id = R.string.homepage_start_your_first_measure),
                     modifier = Modifier.padding(20.dp),
-                    fontSize = 25.sp,
+                    fontSize = 30.sp,
                     fontWeight = FontWeight.Bold,
                     textAlign = TextAlign.Center
                 )
